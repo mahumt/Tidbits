@@ -1,0 +1,66 @@
+import pandas as pd
+df = pd.read_csv('data/housing/housing.data',  delim_whitespace=True ) # OR delimiter='\t' OR sep='\t'
+rows =len(df)
+df2 = pd.DataFrame([rows, 1])
+
+#new_col =  np.ones((rows,1))
+df.append(df2, ignore_index=True)
+#df = np.append(df, new_col, 1)
+df.columns = ['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT', 'MEDV'] 
+
+df.shape
+df.tail(15)
+
+# Creating an array of features
+X=df.iloc[:, 0:12]
+X =X.astype('float64')
+X.info()
+#Xvariables = df[:, [0,1,2,3,4,5,6,7,8,9,10,11,12]] 
+
+# Creating the target
+#y=df.columns[13]
+y=df.iloc[:, 13]
+y=pd.to_numeric(y, downcast='signed', errors='coerce')
+#y =y.astype('int')
+y.describe()
+#Yvariabe = df[:, 13] # We take only the price column
+
+
+# SCIKIT_LEARN BOOSTRAP
+from sklearn.utils import resample
+
+bootX = resample(X, replace=True, n_samples= len(X), random_state=1)
+bootY =  resample(y, replace=True, n_samples=len(X), random_state=1)
+print(bootX), print('Bootstrap Sample: %s' % bootY)  # print(boot.mean())
+
+from sklearn.linear_model import LinearRegression
+clf=LinearRegression(fit_intercept=True)
+reg= clf.fit(X,y)
+print(reg.score(X, y)), print(reg.coef_), print(reg.intercept_) 
+
+from sklearn.linear_model import LinearRegression
+clf=LinearRegression()
+reg1= clf.fit(bootX,bootY)
+print(reg1.score(X, y)), print(reg1.coef_), print(reg1.intercept_)
+
+
+# BOOSTRAP RESAMPLE FUNCTION
+import numpy as np
+import numpy.random as npr
+import pylab
+
+def bootstrap_resample(func , X, y, n=len(X)): # func could Logreg() linreg() etc.
+
+    #if n == None:
+     #   n = len(X)
+        
+    #indices=np.arange(len(X))
+    #resample_i =np.random.choice(indices, size = len(indices), replace = True)
+    resample_i = np.floor(np.random.rand(n)*len(X)).astype(int)
+    
+    X_resample = np.array(X.values[resample_i]) #dataframe cant be accessed using :, (slice) so  .values needed
+    y_resample =  np.array(y[resample_i])
+    beta= func.fit(X_resample, y_resample)
+    return beta
+BoostrapResample = bootstrap_resample(LinearRegression(), X, y)
+print(BoostrapResample.score(X, y)), print(BoostrapResample.coef_), print(BoostrapResample.intercept_)

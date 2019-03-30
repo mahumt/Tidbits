@@ -1,0 +1,37 @@
+#https://stackoverflow.com/questions/22258491/read-a-small-random-sample-from-a-big-csv-file-into-a-python-data-frame
+# to take sample from the data: there is header and file length is unknown by specifiying lines wanted using percentage or n=nmbr of line
+
+1----
+import random
+filename = "df.csv"
+
+p = 0.01  # 1% of the lines 
+# if random from [0,1] interval is greater than 0.01 the row will be skipped
+df = pd.read_csv( filename, header=0, skiprows=lambda i: i>0 and random.random() > p) # keep the header, then take only 1% of lines
+#n = 100  # if every 100th line needed = 1% of the lines
+#df = pd.read_csv(filename, header=0, skiprows=lambda i: i % n != 0)
+
+2----
+# in case the data is too big to handle
+filename = "df.csv"
+n = sum(1 for line in open(filename)) - 1 #number of records in file (excludes header)
+s = 300 #desired sample size
+skip = sorted(random.sample(range(1, n),n-s)) #the 0-indexed header will not be included in the skip list
+log_df = pd.read_csv(filename, sep='|', low_memory=True)
+
+3---
+#https://nikgrozev.com/2015/06/16/fast-and-simple-sampling-in-pandas-when-loading-data-from-files/
+f = "df.csv"
+n = 10 # Take every N-th (in this case 10th) row
+num_lines = sum(1 for l in open(f)) # Count the lines or use an upper bound
+# The row indices to skip - make sure 0 is not included to keep the header!
+skip_idx = [x for x in range(1, num_lines) if x % n != 0]
+log_df = pd.read_csv(f, skiprows=skip_idx, sep='|', low_memory=True) # Read the data
+
+4----
+#predictors=random.sample(predictors, k=300)
+randomRows = np.random.randint(5, size=2)
+for i in randomRows:
+    print(predictors[i,:])
+target=random.sample(target, k=300)
+df.sample(200)

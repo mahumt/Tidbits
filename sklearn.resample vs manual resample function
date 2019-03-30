@@ -1,3 +1,12 @@
+```# Exercice: Bootstrap resampling
+In statistics and data analysis, bootstrap is a method of statistical inference for replicating multiple datasets from a initial dataset. Its goal is to compute an estimator (for example the parameters of a regression), by drawing B multiple training datasets (with replacement). Thus bootstrap is a method to study the stability of an estimator. <br>
+Implement your own bootstrap resampling method. The function should takes three main arguments: <br>
+   - a data matrix X ∈ R m×n 
+   - a number of bootstrap samples B ∈ N 
+   - a function f to compute an estimator  <br>
+Adapt your function to propose a bootstrap estimate of the coefficients of a linear/logistic regression (up to you).
+You will use either Boston’s housing or the MNIST dataset.```
+
 import pandas as pd
 df = pd.read_csv('data/housing/housing.data',  delim_whitespace=True ) # OR delimiter='\t' OR sep='\t'
 rows =len(df)

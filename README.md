@@ -1,3 +1,4 @@
 # Tidbits
-Interesting tidbits of code, 
-      collected from various sites or written over time
+Interesting and useful tidbits of code, <br>
+      collected from various sites <br>
+                  or written over time

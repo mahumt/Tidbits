@@ -1,11 +1,14 @@
-```HTML 
 # Exercise: Logistic Regression
+``` 
 The goal of this exercice is to implement the logistic regression, using loops and vectorization. The main functions to code are the cost function and the gradient in both versions, and the stochastic gradient ascent. <br>
-    a) Create a function prediction_function and its vectorized version prediction_function_vec that return a predicted value $\hat y ∈{[0, 1]}$ for a given X ∈ R
-m×n and θ ∈ R n. Compare these two functions in terms of returned values and computational time. <br>
-    b) Create a function gradient and its vectorized version gradient_vec that return a vector of partial derivatives, the gradient, for a given X ∈ R
-m×n, θ ∈ R n and y ∈ {0, 1}. Compare these two functions in terms of returned values and computational time. <br>
-    c) Implement your own version of the stochastic gradient ascent. What should you do to propose your own version of the batch gradient descent ?<br>
+    a) Create a function prediction_function and its vectorized version prediction_function_vec that return a predicted value 
+$\hat y ∈{[0, 1]}$ for a given X ∈ R m×n and θ ∈ R n.
+Compare these two functions in terms of returned values and computational time. <br>
+    b) Create a function gradient and its vectorized version gradient_vec that return a vector of partial derivatives,
+the gradient, for a given X ∈ R m×n, θ ∈ R n and y ∈ {0, 1}.
+Compare these two functions in terms of returned values and computational time. <br>
+    c) Implement your own version of the stochastic gradient ascent.
+	What should you do to propose your own version of the batch gradient descent ?<br>
     d) After predicting the y-value for each test example, compute the misclassification error $(\hat e)$ as follows: <br>
 $$\hat e = 1/m \sum_{i=1}|\hat y{(i)} − y^{(i)}|$$
 where $ \hat y (i)$ is the round value of $hθ(x(i))$
